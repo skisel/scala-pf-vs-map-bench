@@ -12,44 +12,94 @@ import org.openjdk.jmh.annotations._
 @Measurement(iterations = 5)
 class ScalaBench {
 
-  case class Key(i: Int)
+  sealed trait T
 
-  val keys: List[Key] = (1 to 10) map Key toList
-  val map: Map[Int, Key] = keys map {
-    key: Key => key.i -> key
-  } toMap
+  case class C1(i: Int)  extends T
+  case class C2(i: Int)  extends T
+  case class C3(i: Int)  extends T
+  case class C4(i: Int)  extends T
+  case class C5(i: Int)  extends T
+  case class C6(i: Int)  extends T
+  case class C7(i: Int)  extends T
+  case class C8(i: Int)  extends T
+  case class C9(i: Int)  extends T
+  case class C10(i: Int) extends T
+  case class C11(i: Int) extends T
+  case class C12(i: Int) extends T
+  case class C13(i: Int) extends T
+  case class C14(i: Int) extends T
+  case class C15(i: Int) extends T
+  case class C16(i: Int) extends T
+  case class C17(i: Int) extends T
+  case class C18(i: Int) extends T
+  case class C19(i: Int) extends T
+  case class C20(i: Int) extends T
 
-  val v1 = map(1)
-  val v2 = map(2)
-  val v3 = map(3)
-  val v4 = map(4)
-  val v5 = map(5)
-  val v6 = map(6)
-  val v7 = map(7)
-  val v8 = map(8)
-  val v9 = map(9)
-  val v10 = map(10)
-  val pf: PartialFunction[Int, Key] = {
-    case 0 => v1
-    case 1 => v2
-    case 2 => v3
-    case 3 => v4
-    case 4 => v5
-    case 5 => v6
-    case 6 => v7
-    case 7 => v8
-    case 8 => v9
-    case 9 => v10
+  val map = Map[Class[_],T](
+    C1.getClass ->  C1 (1),
+    C2.getClass ->  C2 (2),
+    C3.getClass ->  C3 (3),
+    C4.getClass ->  C4 (4),
+    C5.getClass ->  C5 (5),
+    C6.getClass ->  C6 (6),
+    C7.getClass ->  C7 (7),
+    C8.getClass ->  C8 (8),
+    C9.getClass ->  C9 (9),
+    C10.getClass -> C10(10),
+    C11.getClass -> C11(11),
+    C12.getClass -> C12(12),
+    C13.getClass -> C13(13),
+    C14.getClass -> C14(14),
+    C15.getClass -> C15(15),
+    C16.getClass -> C16(16),
+    C17.getClass -> C17(17),
+    C18.getClass -> C18(18),
+    C19.getClass -> C19(19),
+    C20.getClass -> C20(20)
+  )
+
+
+  val pf: PartialFunction[T,Int] = {
+    case C1 (1) =>   1
+    case C2 (2) =>   2
+    case C3 (3) =>   3
+    case C4 (4) =>   4
+    case C5 (5) =>   5
+    case C6 (6) =>   6
+    case C7 (7) =>   7
+    case C8 (8) =>   8
+    case C9 (9) =>   9
+    case C10(10) =>  10
+    case C11(11) =>  11
+    case C12(12) =>  12
+    case C13(13) =>  13
+    case C14(14) =>  14
+    case C15(15) =>  15
+    case C16(16) =>  16
+    case C17(17) =>  17
+    case C18(18) =>  18
+    case C19(19) =>  19
+    case C20(20) =>  20
   }
 
   @Benchmark
-  def testMap() = {
-    (map(1), map(2), map(3), map(4), map(5), map(6), map(7), map(8), map(9), map(10))
+  def testMap(): List[T] = {
+    List(map(C1.getClass),
+      map(C5.getClass),
+      map(C4.getClass),
+      map(C2.getClass),
+      map(C5.getClass),
+      map(C6.getClass))
   }
 
   @Benchmark
-  def tstPM() = {
-    (pf(0), pf(1), pf(2), pf(3),pf(4), pf(5),pf(6),pf(7),pf(8),pf(9))
+  def tstPM(): List[Int] = {
+    List( pf(C1(1)),
+          pf(C5(5)),
+          pf(C4(4)),
+          pf(C2(2)),
+          pf(C5(5)),
+          pf(C6(6)))
   }
 
 

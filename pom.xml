@@ -6,7 +6,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name></name>
+    <name>Benchmark to compare using HashMap vs PatternMatching in Scala for certain cases</name>
 
     <!--
        This is the example build script for building Scala benchmarks with JMH.
@@ -24,10 +24,6 @@
             <artifactId>scala-library</artifactId>
             <version>2.10.3</version>
         </dependency>
-        <!--
-            Put the appropriate dependency on scala-library here:
-              org.scala-lang:scala-library:2.10.3 is one of the choices.
-          -->
     </dependencies>
 
     <prerequisites>
@@ -36,7 +32,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jmh.version>0.9.2</jmh.version>
+        <jmh.version>1.5.2</jmh.version>
         <jmh.generator>default</jmh.generator>  <!-- or "asm", or "reflection" -->
     </properties>
 
