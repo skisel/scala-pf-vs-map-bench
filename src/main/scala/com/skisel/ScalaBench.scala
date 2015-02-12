@@ -86,21 +86,20 @@ class ScalaBench {
   def testMap(): List[T] = {
     List(map(C1.getClass),
       map(C5.getClass),
-      map(C4.getClass),
-      map(C2.getClass),
-      map(C5.getClass),
-      map(C6.getClass))
+      map(C17.getClass),
+      map(C18.getClass),
+      map(C19.getClass),
+      map(C20.getClass))
   }
 
   @Benchmark
   def tstPM(): List[Int] = {
-    List( pf(C1(1)),
-          pf(C5(5)),
-          pf(C4(4)),
-          pf(C2(2)),
-          pf(C5(5)),
-          pf(C6(6)))
-  }
-
+     List( pf(C1(1)),
+           pf(C5(5)),
+           pf(C17(17)),
+           pf(C18(18)),
+           pf(C19(19)),
+           pf(C20(20)))
+   }
 
 }
