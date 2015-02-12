@@ -60,26 +60,26 @@ class ScalaBench {
 
 
   val pf: PartialFunction[T,Int] = {
-    case C1 (1) =>   1
-    case C2 (2) =>   2
-    case C3 (3) =>   3
-    case C4 (4) =>   4
-    case C5 (5) =>   5
-    case C6 (6) =>   6
-    case C7 (7) =>   7
-    case C8 (8) =>   8
-    case C9 (9) =>   9
-    case C10(10) =>  10
-    case C11(11) =>  11
-    case C12(12) =>  12
-    case C13(13) =>  13
-    case C14(14) =>  14
-    case C15(15) =>  15
-    case C16(16) =>  16
-    case C17(17) =>  17
-    case C18(18) =>  18
-    case C19(19) =>  19
-    case C20(20) =>  20
+    case _:C1 =>   1
+    case _:C2 =>   2
+    case _:C3 =>   3
+    case _:C4 =>   4
+    case _:C5 =>   5
+    case _:C6 =>   6
+    case _:C7 =>   7
+    case _:C8 =>   8
+    case _:C9 =>   9
+    case _:C10 =>  10
+    case _:C11 =>  11
+    case _:C12 =>  12
+    case _:C13 =>  13
+    case _:C14 =>  14
+    case _:C15 =>  15
+    case _:C16 =>  16
+    case _:C17 =>  17
+    case _:C18 =>  18
+    case _:C19 =>  19
+    case _:C20 =>  20
   }
 
   @Benchmark
