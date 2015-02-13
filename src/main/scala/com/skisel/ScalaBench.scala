@@ -4,6 +4,8 @@ import java.util.concurrent.TimeUnit
 
 import org.openjdk.jmh.annotations._
 
+import scala.util.Random
+
 @BenchmarkMode(Array(Mode.AverageTime))
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 @State(Scope.Benchmark)
@@ -11,6 +13,9 @@ import org.openjdk.jmh.annotations._
 @Warmup(iterations = 5)
 @Measurement(iterations = 5)
 class ScalaBench {
+
+  @Param(Array("1", "5", "15"))
+  var arg: Int = _
 
   sealed trait T
 
@@ -36,15 +41,15 @@ class ScalaBench {
   case class C20(i: Int) extends T
 
   val map = Map[Class[_],T](
-    C1.getClass ->  C1 (1),
-    C2.getClass ->  C2 (2),
-    C3.getClass ->  C3 (3),
-    C4.getClass ->  C4 (4),
-    C5.getClass ->  C5 (5),
-    C6.getClass ->  C6 (6),
-    C7.getClass ->  C7 (7),
-    C8.getClass ->  C8 (8),
-    C9.getClass ->  C9 (9),
+    C1.getClass ->  C1 (1) ,
+    C2.getClass ->  C2 (2) ,
+    C3.getClass ->  C3 (3) ,
+    C4.getClass ->  C4 (4) ,
+    C5.getClass ->  C5 (5) ,
+    C6.getClass ->  C6 (6) ,
+    C7.getClass ->  C7 (7) ,
+    C8.getClass ->  C8 (8) ,
+    C9.getClass ->  C9 (9) ,
     C10.getClass -> C10(10),
     C11.getClass -> C11(11),
     C12.getClass -> C12(12),
@@ -82,24 +87,60 @@ class ScalaBench {
     case _:C20 =>  20
   }
 
+  val pfInput = Random.shuffle(List(
+    C1 (1) ,
+    C2 (2) ,
+    C3 (3) ,
+    C4 (4) ,
+    C5 (5) ,
+    C6 (6) ,
+    C7 (7) ,
+    C8 (8) ,
+    C9 (9) ,
+    C10(10),
+    C11(11),
+    C12(12),
+    C13(13),
+    C14(14),
+    C15(15),
+    C16(16),
+    C17(17),
+    C18(18),
+    C19(19),
+    C20(20)
+  ))
+
+  val mapInput = Random.shuffle(List(
+  C1.getClass ,
+  C2.getClass ,
+  C3.getClass ,
+  C4.getClass ,
+  C5.getClass ,
+  C6.getClass ,
+  C7.getClass ,
+  C8.getClass ,
+  C9.getClass ,
+  C10.getClass,
+  C11.getClass,
+  C12.getClass,
+  C13.getClass,
+  C14.getClass,
+  C15.getClass,
+  C16.getClass,
+  C17.getClass,
+  C18.getClass,
+  C19.getClass,
+  C20.getClass
+  ))
+
   @Benchmark
   def testMap(): List[T] = {
-    List(map(C1.getClass),
-      map(C5.getClass),
-      map(C17.getClass),
-      map(C18.getClass),
-      map(C19.getClass),
-      map(C20.getClass))
+    mapInput.take(arg).map(map)
   }
 
   @Benchmark
   def tstPM(): List[Int] = {
-     List( pf(C1(1)),
-           pf(C5(5)),
-           pf(C17(17)),
-           pf(C18(18)),
-           pf(C19(19)),
-           pf(C20(20)))
+    pfInput.take(arg).map(pf)
    }
 
 }
